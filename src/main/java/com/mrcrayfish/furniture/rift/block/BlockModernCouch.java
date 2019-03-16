@@ -35,8 +35,8 @@ public class BlockModernCouch extends BlockFurnitureWaterlogged
 
     public BlockModernCouch(EnumDyeColor color)
     {
-        super(Block.Builder.create(Material.WOOD, color).hardnessAndResistance(0.5F, 1.0F));
-        this.setDefaultState(this.getStateContainer().getBaseState().withProperty(HORIZONTAL_FACING, EnumFacing.NORTH).withProperty(TYPE, CouchType.BOTH).withProperty(WATERLOGGED, false));
+        super(Block.Properties.create(Material.WOOD, color).hardnessAndResistance(0.5F, 1.0F));
+        this.setDefaultState(this.getStateContainer().getBaseState().with(HORIZONTAL_FACING, EnumFacing.NORTH).with(TYPE, CouchType.BOTH).with(WATERLOGGED, false));
         SHAPES = this.generateShapes(this.getStateContainer().getValidStates());
     }
 
@@ -52,8 +52,8 @@ public class BlockModernCouch extends BlockFurnitureWaterlogged
         ImmutableMap.Builder<IBlockState, VoxelShape> builder = new ImmutableMap.Builder<>();
         for(IBlockState state : states)
         {
-            EnumFacing facing = state.getValue(HORIZONTAL_FACING);
-            CouchType type = state.getValue(TYPE);
+            EnumFacing facing = state.get(HORIZONTAL_FACING);
+            CouchType type = state.get(TYPE);
 
             List<VoxelShape> shapes = new ArrayList<>();
             shapes.add(COUCH_BASE_SHAPE[facing.getHorizontalIndex()]);
@@ -113,35 +113,35 @@ public class BlockModernCouch extends BlockFurnitureWaterlogged
         boolean left = false;
         boolean right = false;
 
-        if(StateHelper.getBlock(world, pos, state.getValue(HORIZONTAL_FACING), StateHelper.Direction.LEFT) instanceof BlockModernCouch)
+        if(StateHelper.getBlock(world, pos, state.get(HORIZONTAL_FACING), StateHelper.Direction.LEFT) instanceof BlockModernCouch)
         {
-            if(StateHelper.getRotation(world, pos, state.getValue(HORIZONTAL_FACING), StateHelper.Direction.LEFT) == StateHelper.Direction.DOWN)
+            if(StateHelper.getRotation(world, pos, state.get(HORIZONTAL_FACING), StateHelper.Direction.LEFT) == StateHelper.Direction.DOWN)
             {
                 left = true;
             }
         }
-        if(StateHelper.getBlock(world, pos, state.getValue(HORIZONTAL_FACING), StateHelper.Direction.RIGHT) instanceof BlockModernCouch)
+        if(StateHelper.getBlock(world, pos, state.get(HORIZONTAL_FACING), StateHelper.Direction.RIGHT) instanceof BlockModernCouch)
         {
-            if(StateHelper.getRotation(world, pos, state.getValue(HORIZONTAL_FACING), StateHelper.Direction.RIGHT) == StateHelper.Direction.DOWN)
+            if(StateHelper.getRotation(world, pos, state.get(HORIZONTAL_FACING), StateHelper.Direction.RIGHT) == StateHelper.Direction.DOWN)
             {
                 right = true;
             }
         }
         if(left && right)
         {
-            return state.withProperty(TYPE, CouchType.BOTH);
+            return state.with(TYPE, CouchType.BOTH);
         }
         else if(!left && !right)
         {
-            return state.withProperty(TYPE, CouchType.NONE);
+            return state.with(TYPE, CouchType.NONE);
         }
         else if(left)
         {
-            return state.withProperty(TYPE, CouchType.LEFT);
+            return state.with(TYPE, CouchType.LEFT);
         }
         else
         {
-            return state.withProperty(TYPE, CouchType.RIGHT);
+            return state.with(TYPE, CouchType.RIGHT);
         }
     }
 

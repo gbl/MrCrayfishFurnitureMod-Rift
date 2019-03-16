@@ -11,7 +11,7 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ShapeUtils;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
@@ -31,7 +31,7 @@ public class BlockFourLegTable extends BlockWaterlogged
 
     public final ImmutableMap<IBlockState, VoxelShape> SHAPES;
 
-    public BlockFourLegTable(Builder builder)
+    public BlockFourLegTable(Properties builder)
     {
         super(builder);
         SHAPES = this.generateShapes(this.getStateContainer().getValidStates());
@@ -48,10 +48,10 @@ public class BlockFourLegTable extends BlockWaterlogged
         ImmutableMap.Builder<IBlockState, VoxelShape> builder = new ImmutableMap.Builder<>();
         for(IBlockState state : states)
         {
-            boolean forward = state.getValue(FORWARD);
-            boolean back = state.getValue(BACK);
-            boolean left = state.getValue(LEFT);
-            boolean right = state.getValue(RIGHT);
+            boolean forward = state.get(FORWARD);
+            boolean back = state.get(BACK);
+            boolean left = state.get(LEFT);
+            boolean right = state.get(RIGHT);
 
             List<VoxelShape> shapes = new ArrayList<>();
             shapes.add(TABLE_TOP_SHAPE);
@@ -102,7 +102,7 @@ public class BlockFourLegTable extends BlockWaterlogged
         boolean back = world.getBlockState(pos.south()).getBlock() == this;
         boolean left = world.getBlockState(pos.west()).getBlock() == this;
         boolean right = world.getBlockState(pos.east()).getBlock() == this;
-        return state.withProperty(FORWARD, forward).withProperty(BACK, back).withProperty(LEFT, left).withProperty(RIGHT, right);
+        return state.with(FORWARD, forward).with(BACK, back).with(LEFT, left).with(RIGHT, right);
     }
 
     @Override

@@ -16,7 +16,7 @@ public class BlockWaterlogged extends Block implements IDefaultBucketPickupHandl
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public BlockWaterlogged(Builder builder)
+    public BlockWaterlogged(Properties builder)
     {
         super(builder);
     }
@@ -25,13 +25,13 @@ public class BlockWaterlogged extends Block implements IDefaultBucketPickupHandl
     public IBlockState getStateForPlacement(BlockItemUseContext context)
     {
         IFluidState fluidState = context.getWorld().getFluidState(context.getPos());
-        return this.getDefaultState().withProperty(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
     }
 
     @Override
     public IFluidState getFluidState(IBlockState state)
     {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
     @Override

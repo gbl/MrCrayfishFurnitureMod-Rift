@@ -14,7 +14,7 @@ import net.minecraft.world.IBlockReader;
 
 public abstract class BlockFurniture extends BlockHorizontal
 {
-    public BlockFurniture(Block.Builder builder)
+    public BlockFurniture(Block.Properties builder)
     {
         super(builder);
     }
@@ -22,7 +22,7 @@ public abstract class BlockFurniture extends BlockHorizontal
     @Override
     public IBlockState getStateForPlacement(BlockItemUseContext context)
     {
-        return this.getDefaultState().withProperty(HORIZONTAL_FACING, context.getPlacementHorizontalFacing());
+        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing());
     }
 
     @Override

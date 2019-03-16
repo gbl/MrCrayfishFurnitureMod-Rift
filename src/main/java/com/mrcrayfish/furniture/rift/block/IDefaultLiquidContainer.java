@@ -18,18 +18,18 @@ public interface IDefaultLiquidContainer extends ILiquidContainer
     @Override
     default boolean canContainFluid(IBlockReader reader, BlockPos pos, IBlockState state, Fluid fluid)
     {
-        return !state.getValue(BlockStateProperties.WATERLOGGED) && fluid == Fluids.WATER;
+        return !state.get(BlockStateProperties.WATERLOGGED) && fluid == Fluids.WATER;
     }
 
     @Override
     default boolean receiveFluid(IWorld world, BlockPos pos, IBlockState state, IFluidState fluidState)
     {
-        if(!state.getValue(BlockStateProperties.WATERLOGGED) && fluidState.getFluid() == Fluids.WATER)
+        if(!state.get(BlockStateProperties.WATERLOGGED) && fluidState.getFluid() == Fluids.WATER)
         {
             if(!world.isRemote())
             {
-                world.setBlockState(pos, state.withProperty(BlockStateProperties.WATERLOGGED, true), 3);
-                world.getPendingFluidTicks().scheduleUpdate(pos, fluidState.getFluid(), fluidState.getFluid().getTickRate(world));
+                world.setBlockState(pos, state.with(BlockStateProperties.WATERLOGGED, true), 3);
+                world.getPendingFluidTicks().scheduleTick(pos, fluidState.getFluid(), fluidState.getFluid().getTickRate(world));
             }
             return true;
         }

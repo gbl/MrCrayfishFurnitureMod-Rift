@@ -24,8 +24,8 @@ public class BlockDesk extends BlockFurnitureWaterlogged implements IDesk
 
     public BlockDesk(EnumDyeColor color)
     {
-        super(Block.Builder.create(Material.WOOD, color).hardnessAndResistance(1.0F, 1.0F));
-        this.setDefaultState(this.getStateContainer().getBaseState().withProperty(HORIZONTAL_FACING, EnumFacing.NORTH).withProperty(TYPE, DeskType.NONE).withProperty(WATERLOGGED, false));
+        super(Block.Properties.create(Material.WOOD, color).hardnessAndResistance(1.0F, 1.0F));
+        this.setDefaultState(this.getStateContainer().getBaseState().with(HORIZONTAL_FACING, EnumFacing.NORTH).with(TYPE, DeskType.NONE).with(WATERLOGGED, false));
     }
 
     @Override
@@ -43,42 +43,42 @@ public class BlockDesk extends BlockFurnitureWaterlogged implements IDesk
 
     private IBlockState getActualState(IWorld world, BlockPos pos, IBlockState state)
     {
-        if(StateHelper.getBlock(world, pos, state.getValue(HORIZONTAL_FACING), StateHelper.Direction.DOWN) instanceof IDesk)
+        if(StateHelper.getBlock(world, pos, state.get(HORIZONTAL_FACING), StateHelper.Direction.DOWN) instanceof IDesk)
         {
-            if(StateHelper.getRotation(world, pos, state.getValue(HORIZONTAL_FACING), StateHelper.Direction.DOWN) == StateHelper.Direction.RIGHT)
+            if(StateHelper.getRotation(world, pos, state.get(HORIZONTAL_FACING), StateHelper.Direction.DOWN) == StateHelper.Direction.RIGHT)
             {
-                return state.withProperty(TYPE, DeskType.CORNER_RIGHT);
+                return state.with(TYPE, DeskType.CORNER_RIGHT);
             }
-            else if(StateHelper.getRotation(world, pos, state.getValue(HORIZONTAL_FACING), StateHelper.Direction.DOWN) == StateHelper.Direction.LEFT)
+            else if(StateHelper.getRotation(world, pos, state.get(HORIZONTAL_FACING), StateHelper.Direction.DOWN) == StateHelper.Direction.LEFT)
             {
-                return state.withProperty(TYPE, DeskType.CORNER_LEFT);
+                return state.with(TYPE, DeskType.CORNER_LEFT);
             }
         }
 
         boolean left = false;
         boolean right = false;
 
-        if(StateHelper.getBlock(world, pos, state.getValue(HORIZONTAL_FACING), StateHelper.Direction.LEFT) instanceof IDesk)
+        if(StateHelper.getBlock(world, pos, state.get(HORIZONTAL_FACING), StateHelper.Direction.LEFT) instanceof IDesk)
         {
             left = true;
         }
-        if(StateHelper.getBlock(world, pos, state.getValue(HORIZONTAL_FACING), StateHelper.Direction.RIGHT) instanceof IDesk)
+        if(StateHelper.getBlock(world, pos, state.get(HORIZONTAL_FACING), StateHelper.Direction.RIGHT) instanceof IDesk)
         {
             right = true;
         }
         if(left && !right)
         {
-            return state.withProperty(TYPE, DeskType.LEFT);
+            return state.with(TYPE, DeskType.LEFT);
         }
         else if(!left && right)
         {
-            return state.withProperty(TYPE, DeskType.RIGHT);
+            return state.with(TYPE, DeskType.RIGHT);
         }
         else if(!left && !right)
         {
-            return state.withProperty(TYPE, DeskType.NONE);
+            return state.with(TYPE, DeskType.NONE);
         }
-        return state.withProperty(TYPE, DeskType.BOTH);
+        return state.with(TYPE, DeskType.BOTH);
     }
 
     @Override

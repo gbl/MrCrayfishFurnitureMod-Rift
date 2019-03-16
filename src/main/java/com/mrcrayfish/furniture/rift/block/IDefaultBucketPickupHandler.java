@@ -16,9 +16,9 @@ public interface IDefaultBucketPickupHandler extends IBucketPickupHandler
     @Override
     default Fluid pickupFluid(IWorld world, BlockPos pos, IBlockState state)
     {
-        if(state.getValue(BlockStateProperties.WATERLOGGED))
+        if(state.get(BlockStateProperties.WATERLOGGED))
         {
-            world.setBlockState(pos, state.withProperty(BlockStateProperties.WATERLOGGED, false), 3);
+            world.setBlockState(pos, state.with(BlockStateProperties.WATERLOGGED, false), 3);
             return Fluids.WATER;
         }
         return Fluids.EMPTY;

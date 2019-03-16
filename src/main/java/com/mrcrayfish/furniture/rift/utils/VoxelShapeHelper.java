@@ -2,7 +2,7 @@ package com.mrcrayfish.furniture.rift.utils;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ShapeUtils;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.shapes.VoxelShape;
 
 import java.util.Collection;
@@ -12,10 +12,10 @@ public class VoxelShapeHelper
 {
     public static VoxelShape combineAll(Collection<VoxelShape> shapes)
     {
-        VoxelShape result = ShapeUtils.empty();
+        VoxelShape result = VoxelShapes.empty();
         for(VoxelShape shape : shapes)
         {
-            result = ShapeUtils.combine(result, shape, IBooleanFunction.OR);
+            result = VoxelShapes.combine(result, shape, IBooleanFunction.OR);
         }
         return result.simplify();
     }
@@ -32,7 +32,7 @@ public class VoxelShapeHelper
     private static VoxelShape rotateShape(VoxelShape source, EnumFacing facing)
     {
         double[] adjustedValues = adjustValues(facing, source.getStart(EnumFacing.Axis.X), source.getStart(EnumFacing.Axis.Z), source.getEnd(EnumFacing.Axis.X), source.getEnd(EnumFacing.Axis.Z));
-        return ShapeUtils.create(adjustedValues[0], source.getStart(EnumFacing.Axis.Y), adjustedValues[1], adjustedValues[2], source.getEnd(EnumFacing.Axis.Y), adjustedValues[3]);
+        return VoxelShapes.create(adjustedValues[0], source.getStart(EnumFacing.Axis.Y), adjustedValues[1], adjustedValues[2], source.getEnd(EnumFacing.Axis.Y), adjustedValues[3]);
     }
 
     private static double[] adjustValues(EnumFacing facing, double var1, double var2, double var3, double var4)

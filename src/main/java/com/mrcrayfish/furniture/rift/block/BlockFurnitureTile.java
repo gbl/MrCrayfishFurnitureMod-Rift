@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 
 public abstract class BlockFurnitureTile extends BlockFurniture implements ITileEntityProvider
 {
-    public BlockFurnitureTile(Block.Builder builder)
+    public BlockFurnitureTile(Block.Properties builder)
     {
         super(builder);
     }

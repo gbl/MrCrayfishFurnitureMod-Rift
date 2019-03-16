@@ -32,7 +32,7 @@ public class EntitySeat extends Entity
         this.setPosition(source.getX() + 0.5, source.getY() + yOffset, source.getZ() + 0.5);
     }
 
-    @Override
+    //@Override
     public void onEntityUpdate()
     {
         if(source == null)
@@ -67,13 +67,13 @@ public class EntitySeat extends Entity
     }
 
     @Override
-    protected void entityInit() {}
+    protected void registerData() {}
+    
+    @Override
+    protected void readAdditional(NBTTagCompound nbtTagCompound) {}
 
     @Override
-    protected void readEntityFromNBT(NBTTagCompound nbtTagCompound) {}
-
-    @Override
-    protected void writeEntityToNBT(NBTTagCompound nbtTagCompound) {}
+    protected void writeAdditional(NBTTagCompound nbtTagCompound) {}
 
     public static boolean create(World world, BlockPos pos, double yOffset, EntityPlayer player)
     {

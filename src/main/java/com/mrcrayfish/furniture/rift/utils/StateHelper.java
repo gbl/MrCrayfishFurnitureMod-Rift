@@ -18,7 +18,7 @@ public class StateHelper
     public static Direction getRotation(IWorld world, BlockPos pos, EnumFacing facing, Direction dir)
     {
         BlockPos target = getBlockPosRelativeTo(pos, facing, dir);
-        EnumFacing other = world.getBlockState(target).getValue(BlockFurniture.HORIZONTAL_FACING);
+        EnumFacing other = world.getBlockState(target).get(BlockFurniture.HORIZONTAL_FACING);
         return getDirectionRelativeTo(facing, other);
     }
 
